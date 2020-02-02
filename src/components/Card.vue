@@ -1,6 +1,9 @@
 <template>
   <div>
-    card~! : {{pageOption.cId}}
+    <template v-if="pageOption.loading"> 조회중... </template>
+    <template v-else>
+      card~! : {{pageOption.cId}}
+    </template>
   </div>
 </template>
 
@@ -9,17 +12,28 @@ export default {
   data() {
     return {
       pageOption: {
-        cId: 0
+        cId: 0,
+        loading: false
       }
     }
   },
   watch: {
-    '$route'() {
-      this.pageOption.cId = this.$route.params.cId;
+    '$route': {
+      handler: 'fetchData',
+      immediate: true
     }
   },
   created() {
-    this.pageOption.cId = this.$route.params.cId;
+    
+  },
+  methods: {
+    fetchData() {
+      this.pageOption.loading = true;
+      setTimeout(() => {
+        this.pageOption.cId = this.$route.params.cId;
+        this.pageOption.loading = false
+      }, 500);
+    }
   },
   
 }

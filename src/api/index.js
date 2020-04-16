@@ -1,21 +1,19 @@
-import axios from 'axios'
+'use strict'
 
-const DOMAIN = 'http://localhost:3000'
+import Vue from 'vue'
+import AppConfig from '@/config/config'
 
-const request = (method, url, params) => {
-  // method : get or post
-  // url : '/abc/cba'
-  return axios ({
-    method,
-    url: DOMAIN + url,
-    params
-  })
-  .then(result => result.data)
-  .catch(result => {
-    const {status} = result.response;
-    if (status) return false;
-  })
-
+export const setAuthInHeader = token => {
+  Vue.httpClient.defaults.headers.common['x-auth-token'] = token ? token : null;
 }
 
-export default request;
+export const auth = {
+  login(params) {
+    return Vue.httpClient
+      .post(`${AppConfig.HTTP_CONFIG.authURL}/login`, params)
+      .then(response => response)
+      .catch(error => {
+        console.log("btnLogin -> error", error);
+      });
+  }
+}

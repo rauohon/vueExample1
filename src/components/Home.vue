@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import axios from 'axios'
+// import Vue from 'vue'
 
 export default {
   data() {
@@ -27,17 +27,18 @@ export default {
   methods: {
     fetchData() {
       this.pageOption.loading = true;
-
-      axios.get('http://localhost:3000/health')
-        .then(response => {
-          this.apiRes = response.data;
-        })
-        .catch(error => {
-          this.error = error;
-        })
-        .finally(() => {
-          this.pageOption.loading = false;
-        })
+      // Vue.httpClient
+      //   .get('/')
+      //   .then(response => {
+      //     console.log("fetchData -> response", response)
+      //     this.apiRes = response.data;
+      //   })
+      //   .catch(error => {
+      //     this.error = error;
+      //   })
+      //   .finally(() => {
+      //     this.pageOption.loading = false;
+      //   })
     }
   },
 
